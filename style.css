@@ -1,0 +1,611 @@
+/* --- 2026 Design Variables --- */
+:root {
+    --bg-color: #000000; /* Deep space dark */
+    --text-color: #f0f4f8; /* Crisp white */
+    --accent-primary: #00884e; /* Electric Dopamine Green */
+    --accent-secondary: #e67e22; /* Vibrant Orange for Sponsors */
+    --card-bg: rgba(255, 255, 255, 0.05);
+}
+
+/* --- Base Reset & Typography --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Helvetica', sans-serif;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+h1, h2, h3, .logo {
+    font-family: 'Helvetica', sans-serif;
+}
+
+h2 span, .logo span {
+    color: var(--accent-primary);
+}
+
+/* --- Navigation --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 5%;
+    background: rgba(13, 15, 18, 0.85);
+    backdrop-filter: blur(12px);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: inline-block;
+    transition: transform 0.2s cubic-bezier(0.33, 1, 0.68, 1), color 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active-link {
+    color: var(--accent-primary);
+}
+
+.nav-links a.active-link {
+    position: relative;
+}
+
+.nav-links a.active-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--accent-primary);
+    border-radius: 2px;
+}
+
+/* --- Mobile Hamburger --- */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    transition: all 0.3s ease-in-out;
+    background-color: var(--text-color);
+    border-radius: 3px;
+}
+
+/* --- Hero Carousel --- */
+.hero {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-container {
+    height: 100%;
+    position: relative;
+}
+
+.carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.carousel-slide::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.carousel-slide.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+.carousel-content {
+    position: relative;
+    z-index: 2;
+}
+
+.carousel-content h1 {
+    font-size: 5rem;
+    color: var(--accent-primary);
+    text-shadow: 0 0 30px rgba(57, 255, 20, 0.4);
+    margin-bottom: 1rem;
+}
+
+.carousel-content p {
+    font-size: 1.5rem;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    font-size: 2rem;
+    padding: 1rem;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+    backdrop-filter: blur(5px);
+    transition: background 0.3s, transform 0.3s;
+}
+
+.carousel-btn:hover {
+    background: var(--accent-primary);
+    color: black;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.prev { left: 20px; }
+.next { right: 20px; }
+
+/* --- Sections & Layout --- */
+.section {
+    padding: 6rem 5%;
+}
+
+.top-padding {
+    padding-top: 8rem; /* Accounts for fixed navbar */
+}
+
+.alt-bg {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+h2 {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 3rem;
+}
+
+/* Expanded Content Box for Wider Layout */
+.content-box {
+    max-width: 1200px; 
+    width: 90%;
+    margin: 0 auto;
+    font-size: 1.3rem;
+    line-height: 1.8;
+    text-align: center;
+    position: relative; 
+    z-index: 1;
+}
+
+.content-box p {
+    position: relative;
+    z-index: 10;
+}
+
+/* --- Roadmap Image --- */
+.roadmap-img {
+    width: 100%;
+    max-width: 1000px;
+    height: auto;
+    max-height: 450px;
+    object-fit: cover;
+    border-radius: 16px;
+    margin: 0 auto 2rem auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 10; 
+    display: block;
+}
+
+/* --- Grid Systems & Cards --- */
+/* --- Grid Systems & Cards --- */
+.grid-container, .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Force Sponsors onto a single line of 3 equal columns */
+.sponsors-grid {
+    display: flex;
+    flex-direction: row;      
+    justify-content: center;  
+    align-items: stretch;     
+    gap: 2.5rem;
+    
+    /* Increase this from 1200px to give the cards more horizontal space */
+    max-width: 1400px; 
+    
+    margin: 0 auto;
+    flex-wrap: nowrap;        
+}
+
+.card, .team-member {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2.5rem 1.5rem;
+    backdrop-filter: blur(10px);
+    text-align: center;
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease;
+    transform-style: preserve-3d; 
+    will-change: transform;
+}
+
+.card:hover, .team-member:hover {
+    transform: translateY(-8px);
+}
+
+.card h3, .team-member h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.card p {
+    color: #a0aab2;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.card-img {
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+/* --- Sponsor Specific Styles --- */
+/* Update your existing .sponsor-card */
+.sponsor-card {
+    flex: 1; 
+    min-width: 320px; 
+    
+    /* Add these Flexbox rules to strictly align the contents */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers everything horizontally */
+    justify-content: flex-start; /* Keeps everything anchored to the top */
+}
+
+/* Replace your existing .sponsor-logo */
+.sponsor-logo {
+    height: 85px !important; 
+    width: 100% !important; /* Force it to take the full width of the card */
+    object-fit: contain;    /* Centers the image perfectly inside its box */
+    margin: 0 0 1.5rem 0 !important;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.15));
+}
+
+.outline-green {
+    border: 1px solid rgba(0, 136, 78, 0.4);
+}
+.outline-green:hover {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 25px rgba(0, 136, 78, 0.3);
+}
+
+.outline-orange {
+    border: 1px solid rgba(230, 126, 34, 0.4);
+}
+.outline-orange:hover {
+    border-color: var(--accent-secondary);
+    box-shadow: 0 0 25px rgba(230, 126, 34, 0.3);
+}
+
+/* --- Sponsorship Invitation Banner --- */
+.sponsorship-invitation {
+    max-width: 1000px;
+    margin: 5rem auto;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, rgba(0, 136, 78, 0.08) 0%, rgba(230, 126, 34, 0.08) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.invitation-text h3 {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.invitation-text p {
+    font-size: 1.2rem;
+    color: #c0c8d0;
+    max-width: 800px;
+    margin: 0 auto 2rem auto;
+    line-height: 1.8;
+}
+
+/* --- Utilities --- */
+.top-margin { margin-top: 2rem; }
+.top-margin-small { margin-top: 1rem; }
+.centered-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: max-content;
+}
+
+/* --- Team Avatar --- */
+.team-member .avatar {
+    width: 160px;
+    height: 160px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    margin: 0 auto 1.5rem;
+    overflow: hidden; 
+    display: block; 
+    border: 3px solid var(--accent-primary);
+    box-shadow: 0 0 20px rgba(57, 255, 20, 0.2); 
+}
+
+.team-member .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* --- Forms & Buttons --- */
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    border-radius: 8px;
+    font-family: 'Helvetica', sans-serif;
+    font-size: 1.1rem;
+}
+
+.contact-form input:focus, .contact-form textarea:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
+}
+
+.btn, .button {
+    background-color: var(--accent-primary);
+    color: #000;
+    font-weight: bold;
+    font-family: 'Helvetica', sans-serif;
+    font-size: 1.1rem;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s cubic-bezier(0.33, 1, 0.68, 1), box-shadow 0.3s;
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+.btn:hover, .button:hover {
+    box-shadow: 0 0 25px rgba(22, 91, 10, 0.6);
+    transform: translateY(-3px);
+}
+
+.button-orange {
+    background-color: var(--accent-secondary);
+    color: #fff;
+}
+
+.button-orange:hover {
+    box-shadow: 0 0 25px rgba(230, 126, 34, 0.6);
+    background-color: #f39c12;
+}
+
+/* --- Toucan Side Graphics & Animations --- */
+.toucan-side {
+    position: absolute;
+    top: 50%;
+    width: 250px; 
+    height: 400px;
+    z-index: 0;
+    opacity: 0.8;
+    pointer-events: none; 
+}
+
+.toucan-left {
+    left: -200px; 
+    transform: translateY(-50%);
+}
+
+.toucan-right {
+    right: -200px;
+    transform: translateY(-50%) scaleX(-1); 
+}
+
+/* Branch Swaying Animation */
+.branch-sway, .toucan-svg {
+    width: 100%;
+    height: 100%;
+    transform-origin: bottom center;
+    animation: sway 10s ease-in-out infinite;
+}
+
+.toucan-right .branch-sway, 
+.toucan-right .toucan-svg {
+    animation-delay: -3s; 
+}
+
+@keyframes sway {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(2deg); }
+}
+
+/* Circuit Drawing Animation for Branches */
+.branch-line {
+    stroke-dasharray: 600;
+    stroke-dashoffset: 600;
+    animation: drawCircuit 3s ease-out forwards;
+}
+
+.branch-line:nth-of-type(1) { animation-delay: 0.5s; }
+.branch-line:nth-of-type(2) { animation-delay: 1.5s; }
+.branch-line:nth-of-type(3) { animation-delay: 2s; }
+
+.tree-node {
+    opacity: 0;
+    transform-origin: center;
+    animation: popNode 0.5s ease-out forwards;
+}
+
+.tree-node:nth-of-type(1) { animation-delay: 2.5s; }
+.tree-node:nth-of-type(2) { animation-delay: 3s; }
+.tree-node:nth-of-type(3) { animation-delay: 3.2s; }
+
+@keyframes drawCircuit {
+    to { stroke-dashoffset: 0; }
+}
+
+@keyframes popNode {
+    0% { transform: scale(0); opacity: 0; }
+    80% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; box-shadow: 0 0 10px var(--accent-primary); }
+}
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    padding: 2rem;
+    background: #000;
+    font-weight: 600;
+    font-size: 1.2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* --- Responsive Media Queries --- */
+@media (max-width: 991px) { 
+    .toucan-side {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+        background-color: var(--accent-primary);
+    }
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+        background-color: var(--accent-primary);
+    }
+
+    .nav-links {
+        position: fixed;
+        left: -100%;
+        top: 0;
+        flex-direction: column;
+        background-color: rgba(13, 15, 18, 0.98);
+        backdrop-filter: blur(15px);
+        width: 100%;
+        height: 100vh;
+        text-align: center;
+        transition: 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+        justify-content: center;
+        gap: 2.5rem;
+    }
+
+    .nav-links.active {
+        left: 0;
+    }
+
+    .nav-links a {
+        font-size: 1.8rem;
+    }
+
+    .carousel-content h1 {
+        font-size: 3rem;
+    }
+    h2 {
+        font-size: 2.2rem;
+    }
+    
+    .sponsorship-invitation {
+        padding: 3rem 1.5rem;
+    }
+    .invitation-text h3 {
+        font-size: 1.8rem;
+    }
+
+    /* Add this new rule specifically for the sponsor card headings */
+    .sponsor-card h3 {
+        width: 100%;
+        text-align: center;
+        
+        /* 110px gives enough room for 3 lines of text. Adjust slightly if needed! */
+        min-height: 110px; 
+        
+        /* Optional: This centers the text vertically inside its box if it's only 1 line */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+
+    /* Add this rule to handle the paragraph text inside the card */
+    .sponsor-card p {
+        flex-grow: 1; /* Pushes the bottom of the card down evenly */
+        width: 100%;
+        text-align: center;
+    }
+}
+
