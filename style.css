@@ -148,8 +148,8 @@ h2 span, .logo span {
 
 .carousel-content h1 {
     font-size: 5rem;
-    color: var(--accent-primary);
-    text-shadow: 0 0 30px rgba(57, 255, 20, 0.4);
+    color: #f0f4f8;
+    text-shadow: 0 0 30px rgb(255, 255, 255);
     margin-bottom: 1rem;
 }
 
@@ -516,23 +516,86 @@ h2 {
 }
 
 /* --- Footer --- */
+/* --- Footer --- */
 footer {
-    text-align: center;
-    padding: 2rem;
+    padding: 2rem 5%;
     background: #000;
     font-weight: 600;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+.footer-content {
+    display: flex;
+    justify-content: space-between; /* This puts Insta left, text center, LinkedIn right */
+    align-items: center;
+    flex-direction: row; /* Forces horizontal layout on desktop */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-content p {
+    text-align: center;
+    flex: 1; /* Keeps text perfectly centered */
+    margin: 0 1rem;
+}
+
+/* Container for the link */
+.social-link {
+    display: inline-block;
+    text-decoration: none;
+}
+
+/* THE FIX: Force the images to stay small */
+.social-link img {
+    height: 35px !important; 
+    width: auto !important;
+    max-width: 100%;
+    display: block;
+    transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1), filter 0.3s;
+}
+
+/* Hover effects */
+.left-link:hover img {
+    transform: translateY(-3px) scale(1.1);
+    filter: drop-shadow(0 0 10px var(--accent-secondary)); 
+}
+
+.right-link:hover img {
+    transform: translateY(-3px) scale(1.1);
+    filter: drop-shadow(0 0 10px var(--accent-primary)); 
+}
+
 /* --- Responsive Media Queries --- */
-@media (max-width: 991px) { 
-    .toucan-side {
-        display: none;
+/* --- Mobile Responsiveness for Sponsors --- */
+@media (max-width: 991px) {
+    .sponsors-grid {
+        flex-direction: column; /* This is the magic command that stacks them vertically */
+        align-items: center;    /* Keeps the stacked cards perfectly centered on the screen */
+        gap: 2rem;              /* Adds breathing room between the stacked cards */
+    }
+
+    .sponsor-card {
+        width: 100%;            /* Allows the card to expand nicely on mobile */
+        max-width: 450px;       /* Prevents them from getting awkwardly wide on an iPad/tablet */
+        min-width: unset;       /* Removes our strict desktop minimum width so it fits on very tiny phones */
+    }
+    
+    /* Optional: Scale down the titles slightly for mobile screens */
+    .sponsor-card h3 {
+        font-size: 1.5rem;
+        min-height: auto;       /* Removes the forced 3-line height since they are stacked now */
+        margin-top: 1rem;
     }
 }
 
 @media (max-width: 768px) {
+    .sponsors-grid {
+        flex-direction: column; /* This is the magic command that stacks them vertically */
+        align-items: center;    /* Keeps the stacked cards perfectly centered on the screen */
+        gap: 2rem;              /* Adds breathing room between the stacked cards */
+    }
+    
     .hamburger {
         display: block;
     }
@@ -607,5 +670,31 @@ footer {
         width: 100%;
         text-align: center;
     }
+/* Container for the link to remove default outlines */
+.social-link {
+    display: inline-block;
+    text-decoration: none;
+}
+
+/* Sizing and smooth transitions for the PNG icons */
+.social-link img {
+    height: 35px; /* Change this number to make the icons bigger or smaller */
+    width: auto;
+    display: block;
+    transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1), filter 0.3s;
+}
+
+/* Hover effect for Instagram: Scales up and glows Orange */
+.left-link:hover img {
+    transform: translateY(-3px) scale(1.1);
+    filter: drop-shadow(0 0 10px var(--accent-secondary)); 
+}
+
+/* Hover effect for LinkedIn: Scales up and glows Green */
+.right-link:hover img {
+    transform: translateY(-3px) scale(1.1);
+    filter: drop-shadow(0 0 10px var(--accent-primary)); 
+}
+    
 }
 
